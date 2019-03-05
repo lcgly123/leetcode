@@ -26,7 +26,7 @@ class Solution(object):
         """
         
         dp=[0]*(target+1)
-        dp[0]=1
+        dp[0]=1# 为了是nums里的数为1
         if nums==[]:
             return 0
         
