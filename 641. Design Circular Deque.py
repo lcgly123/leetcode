@@ -15,6 +15,7 @@ isEmpty(): Checks whether Deque is empty or not.
 isFull(): Checks whether Deque is full or not.
 
 
+    # 真无聊
 class MyCircularDeque:
 
     def __init__(self, k: int):
