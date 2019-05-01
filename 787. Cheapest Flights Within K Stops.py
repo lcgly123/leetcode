@@ -20,6 +20,7 @@ class Solution:
     def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, K: int) -> int:
         
         # NB
+        # 有步数限制，Dj算法不合适
         dp=[float('inf')]*n
         dp[src]=0
         
@@ -33,36 +34,6 @@ class Solution:
         
         
         
-#         # 可以，但会超时
-#         import collections
-#         gragh=collections.defaultdict(dict)
-        
-#         for u,v,w in flights:
-#             gragh[u][v]=w
-        
-#         money=[None]*n
-#         money[src]=0
-#         k=0
-        
-#         queen=[src]
-#         while(queen):
-#             new=[]
-#             for node in queen:
-#                 for next_node in gragh[node]:
-#                     if next_node!=dst:
-#                         if money[next_node]==None or money[next_node] >money[node]+gragh[node][next_node]:
-#                             money[next_node]=money[node]+gragh[node][next_node]
-#                     else:
-#                         if k<=K+1:
-#                             if money[next_node]==None or money[next_node] >money[node]+gragh[node][next_node]:
-#                                 money[next_node]=money[node]+gragh[node][next_node]
-                        
-                            
-                    
-#                     new.append(next_node)
-#             k+=1
-#             queen=new
-        
-#         return money[dst] if money[dst]!=None else -1
+
         
         
