@@ -33,7 +33,7 @@ class Solution:
             if N==1:
                 return [TreeNode(0)]
             res=[]
-            for l in range(1,N-1,2):
+            for l in range(1,N-1,2):# 子树都只能是奇数
                 for left in dfs(l):
                     for right in dfs(N-1-l):
                         root=TreeNode(0)
