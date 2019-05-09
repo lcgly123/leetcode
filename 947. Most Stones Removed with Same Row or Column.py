@@ -40,7 +40,7 @@ class Solution:
                 return 0
             seen.add((i,j))
             for x,y in stones:
-                if x==i or y==j:# 表示有联系，有用
+                if x==i or y==j:# 表示有联系，表示有联系，也是懒得建图了
                     dfs(x,y)
             return 1
         
