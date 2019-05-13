@@ -21,7 +21,7 @@ class Solution:
         
         # 分类讨论
         for r in range(len(s)):
-            if s[r] not in index:
+            if s[r] not in index:# 直接用in而不是count是一个技巧
                 res=max(res,r-l+1)
             elif s[r] in index and index[s[r]]<l:# index[s[r]]在l前面直接算
                 res=max(res,r-l+1)
