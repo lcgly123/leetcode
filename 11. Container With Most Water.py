@@ -25,7 +25,7 @@ class Solution:
         :rtype: int
         """
         l,r=0,len(height)-1
-        res=0
+        res=0# 有点像贪心搜索
         while(l<r):
             h=min(height[l],height[r])
             res=max(res,h*(r-l))# 储水量
