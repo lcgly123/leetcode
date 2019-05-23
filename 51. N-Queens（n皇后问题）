@@ -1,0 +1,90 @@
+51. N-Queens
+
+The n-queens puzzle is the problem of placing n queens on an n×n chessboard such that no two queens attack each other.
+
+
+
+Given an integer n, return all distinct solutions to the n-queens puzzle.
+
+Each solution contains a distinct board configuration of the n-queens' placement, where 'Q' and '.' both indicate a queen and an empty space respectively.
+
+Example:
+
+Input: 4
+Output: [
+ [".Q..",  // Solution 1
+  "...Q",
+  "Q...",
+  "..Q."],
+
+ ["..Q.",  // Solution 2
+  "Q...",
+  "...Q",
+  ".Q.."]
+]
+
+class Solution:
+    def solveNQueens(self, n):
+        """
+        :type n: int
+        :rtype: List[List[str]]
+        """
+        # NB,只要判断x+y，x-y是否见过就解决了斜线
+        def dfs(can,xy_add,xy_sub,path,res):
+            if len(path)==n:
+                res.append(path)
+                return
+            for i,x in enumerate(can):
+                if x+len(xy_add) in xy_add or x-len(xy_sub) in xy_sub:
+                    continue
+                can_in=can[:]
+                can_in.pop(i)
+                dfs(can_in,xy_add+[x+len(xy_add)],xy_sub+[x-len(xy_sub)],path+[x],res)
+                
+        res=[]
+        can=[x for x in range(n)]
+        dfs(can,[],[],[],res)
+        
+        result = [['.'*i+'Q'+'.'*(n-1-i) for i in solution] for solution in res] 
+        
+        return result
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+#         # (x, y) is occupied, any other locations (p, q ) where p + q == x + y(y=-x的斜线) or p - q == x - y（y=x的斜线） would be invalid.
+#         def dfs(candidates,xy_sum,xy_sub,path,res):
+#             if len(candidates)==0:
+#                 res.append(path)
+#                 return
+#             for i in range(len(candidates)):
+#                 if (candidates[i]+len(path) not in xy_sum) and (candidates[i]-len(path) not in xy_sub):
+#                     candidates_in=candidates[:]
+#                     candidates_in.pop(i)
+#                     dfs(candidates_in,xy_sum+[candidates[i]+len(path)],xy_sub+[candidates[i]-len(path)],path+[candidates[i]],res)
+        
+#         candidates=[i for i in range(n)]
+#         res=[]
+#         dfs(candidates,[],[],[],res)
+        
+#         result = [['.'*i+'Q'+'.'*(n-1-i) for i in solution] for solution in res] 
+        
+#         return result
+                
+            
+            
