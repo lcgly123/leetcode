@@ -24,6 +24,20 @@ class Solution:
         :type target: int
         :rtype: List[List[int]]
         """
+        def dfs(can,target,path,res):
+            if sum(path)==target:
+                res.append(path)
+                return
+            elif sum(path)>target:
+                return
+            for i,n in enumerate(can):
+                dfs(can[i:],target,path+[can[i]],res)
+                
+        res=[]
+        dfs(candidates,target,[],res)
+        return res
+        
+        
         #搜索所有的组合
         def dfs(can,index,target,path,res):
             if sum(path)==target:
@@ -71,4 +85,26 @@ class Solution:
 #         return result
     
     
+        
+    
+    
+    
+    
+#     # 这种更好，改变搜索队列而不是改指针，更容易理解
+#         def dfs(candidates,target,path,result):
+#             if target<0:
+#                 return
+#             if target==0:
+#                 result.append(path) 
+#                 return
+
+#             for i in range(0,len(candidates)):
+#                 # if (i-1)>=0 and  candidates[i]==candidates[i-1]:
+#                 #     continue  
+#                 dfs(candidates[i:],target-candidates[i],path+[candidates[i]],result)
+        
+#         result=[]
+#         dfs(candidates,target,[],result)
+        
+#         return result
         
