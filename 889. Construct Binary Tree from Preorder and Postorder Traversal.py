@@ -32,10 +32,10 @@ class Solution:
                 if pre[1]==post[-2]:# 只有一边有
                     root.right=dfs(pre[1:],post[:-1])# 这时候建在哪边都可以root.left=dfs(pre[1:],post[:-1])也对
                 else:
-                    left_last_in_post=post.index(pre[1])
-                    right_first_in_pre=pre.index(post[-2])
-                    root.left=dfs(pre[1:right_first_in_pre],post[:left_last_in_post+1])
-                    root.right=dfs(pre[right_first_in_pre:],post[left_last_in_post+1:-1])
+                    last_in_post_left=post.index(pre[1])
+                    first_in_pre_right=pre.index(post[-2])
+                    root.left=dfs(pre[1:first_in_pre_right],post[:last_in_post_left+1])
+                    root.right=dfs(pre[first_in_pre_right:],post[last_in_post_left+1:-1])
             return root
             
         return dfs(pre,post)
