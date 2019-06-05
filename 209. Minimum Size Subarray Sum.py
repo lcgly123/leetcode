@@ -8,35 +8,33 @@ Explanation: the subarray [4,3] has the minimal length under the problem constra
 
 
 class Solution:
-    # 答案有错，我的答案是对应本题的
-    def minSubArrayLen(self, s: 'int', nums: 'List[int]') -> 'int':
-        if nums==[]:
-            return 0
-        if nums[0]==s:
-            return 1
-        elif nums[0]>s:
-            mid=[[]]
-        else:
-            mid=[[nums[0]]]
-            
+    def minSubArrayLen(self, s: int, nums: List[int]) -> int:
+
         
-        res=[]
-        for i in range(1,len(nums)):
-            new_mid=[[nums[i]]+x for x in mid]+[[nums[i]]]
-            print(new_mid)
-            for i in range(len(new_mid)-1,-1,-1):
-                if sum(new_mid[i])==s:
-                    res.append(new_mid.pop(i))
-                elif sum(new_mid[i])>s:
-                    new_mid.pop(i)
-            mid=new_mid
+        # 滑窗法，sum会超时
+        # if sum(nums)<s:
+        #     return 0
+        # res=len(nums)
+        # l=0
+        # for r,n in enumerate(nums):
+        #     if sum(nums[l:r+1])>=s:
+        #         while(l<=r and sum(nums[l:r+1])>=s):
+        #             res=min(res,r-l+1)
+        #             l+=1
+        # return res 
+                
+        # 加一个临时变量就快好多
+#         if sum(nums)<s:
+#             return 0
+#         res=len(nums)
+#         l=0
         
-        print(res)
-        
-        if len(res)==0:
-            return 0
-        min_=len(nums)
-        for i in res:
-            min_=min(len(i),min_)
-        
-        return min_
+#         temp=0
+#         for r,n in enumerate(nums):
+#             temp+=n
+#             if temp>=s:
+#                 while(l<=r and temp>=s):
+#                     res=min(res,r-l+1)
+#                     temp-=nums[l]
+#                     l+=1
+#         return res 
