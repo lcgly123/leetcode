@@ -14,7 +14,6 @@ trie.search("app");     // returns true
 
 class node(object):
     def __init__(self,val):
-        self.val=val
         self.children={}
         self.is_end=False
 
@@ -26,7 +25,7 @@ class Trie:
         """
         Initialize your data structure here.
         """
-        self.root=node(0)# 这个其实没用，初始化为None也行
+        self.root=node()
         
 
     def insert(self, word: 'str') -> 'None':
@@ -36,7 +35,7 @@ class Trie:
         cur=self.root
         for c in word:
             if c not in cur.children:
-                cur.children[c]=node(c)
+                cur.children[c]=node()
             cur=cur.children[c]
         cur.is_end=True
         
