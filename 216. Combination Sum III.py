@@ -26,18 +26,14 @@ class Solution(object):
         :rtype: List[List[int]]
         """
         
-        def dfs(candidates,n,k,path,res):
-            if sum(path)==n and len(path)==k and sorted(path) not in res:#  可以这样，不用集合
-                res.append(sorted(path))
-                return
+        def dfs(can,n,k,path,res):
             if len(path)==k:
+                if sum(path)==n:
+                    res.append(path)
                 return
-            
-            for i in range(len(candidates)):
-                candidates_in=candidates[:]
-                path_in=path+[candidates_in.pop(i)]
-                dfs(candidates_in,n,k,path_in,res)
-                
+            for i,c in enumerate(can):
+                dfs(can[i+1:],n,k,path+[c],res)
+        
         res=[]
         dfs([1,2,3,4,5,6,7,8,9],n,k,[],res)
         return res
