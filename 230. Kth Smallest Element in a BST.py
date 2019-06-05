@@ -41,6 +41,24 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
+        def dfs(node,path):
+            global res
+            if node==None:
+                return
+            
+            dfs(node.left,path)
+            path.append(node.val)
+            if len(path)==k:
+                res=path[-1]
+                return 
+            dfs(node.right,path)
+        
+        global res
+        res=0
+        dfs(root,[])
+        return res
+   
+   # 不太好的一种
         # 自己想的，答案用全局变量（一个类变量）更好一些
         def dfs(root,count,k):
             if root!=None:
