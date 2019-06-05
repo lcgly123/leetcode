@@ -26,6 +26,8 @@ class Solution:
         :type target: int
         :rtype: bool
         """
+        # 注意这个不能二分查找，因为无序
+        
         # 从左下角，或者右上角搜起
         row,col=len(matrix)-1,0
         
