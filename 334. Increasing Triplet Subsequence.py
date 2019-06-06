@@ -20,14 +20,29 @@ Output: false
 
 class Solution:
     def increasingTriplet(self, nums: List[int]) -> bool:
-        
-        # 就是求最长序列的简单版
-        dp=[1]*len(nums)
-        for i in range(len(nums)):
-            for j in range(i):
-                if nums[i]>nums[j]:
-                    dp[i]=max(dp[j]+1,dp[i])
-                if dp[i]==3:
-                    return True
-                
+        # 每一步更新最小的和第二小的
+        first=second=float('inf')
+        for n in nums:
+            if n<=first:
+                first=n
+            elif n<=second:
+                second=n
+            else:
+                return True
         return False
+        
+
+        
+        
+#         # 当时让过的，现在不让过了
+#         # 就是求最长序列的简单版
+#         dp=[1]*len(nums)
+#         for i in range(len(nums)):
+#             for j in range(i):
+#                 if nums[i]>nums[j]:
+#                     dp[i]=max(dp[j]+1,dp[i])
+#                 if dp[i]==3:
+#                     return True
+                
+#         return False
+                        
