@@ -25,33 +25,24 @@ Explanation: The additive sequence is: 1, 99, 100, 199.
              
 class Solution:
     def isAdditiveNumber(self, num: str) -> bool:
-        
-        
-        flag=False
-        
-        # 其实只需要找到前两个数字，后面的滚下去就行
         for i in range(1,len(num)//2+1):
             for j in range(i+1,len(num)):
+                # 其实只需要找到前两个数字，后面的滚下去就行
                 if (num[:i].startswith('0') and len(num[:i])>1) or (num[i:j].startswith('0') and len(num[i:j])>1):
                     continue
-                    
-                l=j
-                p1=int(num[:i])
-                p2=int(num[i:j])
-                # print(p1,p2)
-                while(l<=len(num)):
-                    temp=p1+p2
-                    if l+len(str(temp))<=len(num):
-                        sum_=num[l:l+len(str(p1+p2))]
-                        if int(sum_)==temp:
-                            p1=p2
-                            p2=temp
-                            l=l+len(str(temp))
-                            if l==len(num):
-                                flag=True
-                        else:
-                            break
-                    else:
+                f=num[:i]
+                s=num[i:j]
+                r=j
+                while(r<=len(num)):
+                    temp=str(int(f)+int(s))
+                    if not num[r:].startswith(temp):
                         break
-                        
-        return flag
+                    else:
+                        f=s
+                        s=temp
+                        r=r+len(temp)
+                        if r==len(num):
+                            return True
+        return False
+                    
+        
