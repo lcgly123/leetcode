@@ -23,32 +23,57 @@ Explanation: Another possible reconstruction is ["JFK","SFO","ATL","JFK","ATL","
 
 class Solution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
-        import collections
-        # 没有给节点数的建图方式
+        
         gragh=collections.defaultdict(list)
-        for i,j in tickets:
-            gragh[i].append(j)
-            gragh[i].sort()
-
-        path=[]
-        res=[]
-        def dfs(root,path,res):
-            if len(path)==len(tickets)+1:# 这才是终止条件
+        for k,v in tickets:
+            gragh[k].append(v)
+            gragh[k].sort()
+        
+        def dfs(node,path,res):
+            if len(path)==len(tickets)+1:
                 res.append(path)
                 return True
-            if gragh[root]==[]:
-                return False
-
-            for i in range(len(gragh[root])):
-                node=gragh[root].pop(i)
-                out=dfs(node,path+[node],res)
-                if out:# 只要搜到第一个，不然会超时
+            # if len(gragh[node])==0:
+            #     return False
+            for i,_ in enumerate(gragh[node]):#可以循环但不能重复一张票
+                next_node=gragh[node].pop(i)
+                if dfs(next_node,path+[next_node],res):
                     return True
-                gragh[root].insert(i,node)# 一定要把图恢复原状，不然回去是时候图变了，有用
-            
-        a=dfs('JFK',path+['JFK'],res)
-        return res[0]
+                gragh[node].insert(i,next_node)
                 
+        res=[]
+        dfs('JFK',['JFK'],res)
+        return res[0] 
+        
+#         import collections
+#         # 没有给节点数的建图方式
+#         gragh=collections.defaultdict(list)
+#         for i,j in tickets:
+#             gragh[i].append(j)
+#             gragh[i].sort()
+
+#         path=[]
+#         res=[]
+#         def dfs(root,path,res):
+#             if len(path)==len(tickets)+1:# 这才是终止条件
+#                 res.append(path)
+#                 return True
+#             if gragh[root]==[]:
+#                 return False
+
+#             for i in range(len(gragh[root])):
+#                 node=gragh[root].pop(i)
+#                 out=dfs(node,path+[node],res)
+#                 if out:# 只要搜到第一个，不然会超时
+#                     return True
+#                 gragh[root].insert(i,node)# 一定要把图恢复原状，不然回去是时候图变了，有用
+            
+#         a=dfs('JFK',path+['JFK'],res)
+#         return res[0]
+                
+            
+        
+        
             
 
 
