@@ -36,22 +36,73 @@ Output: [3, 4]
 
 class Solution:
     def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
-        # 用这个建立无向图，用于边只给一次
-        gragh=[[] for i in range(n)]# 用set保险一些，防止出现重复的边
-        for x,y in edges:
-            gragh[x].append(y)
-            gragh[y].append(x)
         
+        gragh=collections.defaultdict(list)
         
-        remains=[i for i in range(len(gragh))]
-        leaves=[i for i in remains if len(gragh[i])==1]# 如果边为1就是叶子节点
+        if edges==[]:
+            return [0]
+        for k,v in edges:
+            gragh[k].append(v)
+            gragh[v].append(k)
         
-        while(len(remains)>2):            
-            for leaf in leaves:
-                neighbor=gragh[leaf].pop() # 就是叶子节点唯一的相关节点,之后叶子节点会变成[],有用
-                gragh[neighbor].remove(leaf)# 删除相邻节点中的叶子节点
-                
+        leafs=[x for x in range(n) if len(gragh[x])==1]
+        remains=[x for x in range(n)]
+        
+        while(len(remains)>2):
+            for leaf in leafs:
+                neigh=gragh[leaf].pop()
+                gragh[neigh].remove(leaf)
                 remains.remove(leaf)
-            leaves=[i for i in remains if len(gragh[i])==1]
+            leafs=[x for x in inners if len(gragh[x])==1]
+            
+        return inners
         
-        return remains
+        
+        
+        
+        
+#         # 用这个建立无向图，用于边只给一次
+#         gragh=[[] for i in range(n)]# 用set保险一些，防止出现重复的边
+#         for x,y in edges:
+#             gragh[x].append(y)
+#             gragh[y].append(x)
+        
+        
+#         remains=[i for i in range(len(gragh))]
+#         leaves=[i for i in remains if len(gragh[i])==1]# 如果边为1就是叶子节点
+        
+#         while(len(remains)>2):            
+#             for leaf in leaves:
+#                 neighbor=gragh[leaf].pop() # 就是叶子节点唯一的相关节点,之后叶子节点会变成[],有用
+#                 gragh[neighbor].remove(leaf)# 删除相邻节点中的叶子节点
+                
+#                 remains.remove(leaf)
+#             leaves=[i for i in remains if len(gragh[i])==1]
+        
+#         return remains
+            
+            
+        
+            
+        
+        
+        
+
+                        
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        
+        
+        
+        
+        
