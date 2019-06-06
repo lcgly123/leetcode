@@ -37,7 +37,6 @@ Explanation: By calling next repeatedly until hasNext returns false,
 #        :rtype List[NestedInteger]
 #        """
 
-# 其实很简单
 class NestedIterator(object):
 
     def __init__(self, nestedList):
@@ -54,11 +53,11 @@ class NestedIterator(object):
                 for i in candidates:
                     dfs(i,res)
             else:
+                if candidates.isInteger():
+                    dfs(candidates.getInteger(),res)
                 for i in candidates.getList():
                     dfs(i,res)
-                temp=candidates.getInteger()
-                if temp!=None:
-                    dfs(temp,res)
+
             
         dfs(nestedList,self.list)
         
@@ -82,7 +81,3 @@ class NestedIterator(object):
         """
         return self.p!=len(self.list)
         
-
-# Your NestedIterator object will be instantiated and called as such:
-# i, v = NestedIterator(nestedList), []
-# while i.hasNext(): v.append(i.next())
