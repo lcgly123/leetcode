@@ -17,23 +17,23 @@ s = "2[abc]3[cd]ef", return "abcabccdcdcdef".
 
 class Solution:
     def decodeString(self, s: str) -> str:
-        num=''
-        res_stack=[['',1]]
 
-        # NB
-        for i in s:
-            if i in '0987654321':
-                num+=i
-            elif i=='[':
-                res_stack.append(['',int(num)])# 表示这一层【】的pattern和需要乘的次数，NB
+        stack=[['',1]]# 这个1其实没啥用
+        num=''
+        pattern=''
+        for c in  s:
+            if c in '0123456789':
+                num+=c
+            elif c=='[':
+                stack.append(['',int(num)])
                 num=''
-            elif i==']':
-                pattern,mul=res_stack.pop()
-                res_stack[-1][0]+=pattern*mul
- 
+            elif c==']':
+                cur_pattern,cur_num=stack.pop()
+                stack[-1][0]+=cur_pattern*cur_num
             else:
-                res_stack[-1][0]+=i#NB
-        return res_stack[-1][0]
+                stack[-1][0]+=c
+                
+        return stack[-1][0]
                 
                 
                 
