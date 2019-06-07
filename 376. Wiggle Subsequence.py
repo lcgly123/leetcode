@@ -18,32 +18,25 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        dp=[1]*len(nums)
-        flag=[1]*len(nums)# 第一次是上升的
         
+        # 寻找峰峰值点
+        up=False
+        down=False
         if nums==[]:
             return 0
+        res=1
         for i in range(1,len(nums)):
-            for j in range(i):
-                if nums[i]-nums[j]>0 and flag[j]==1:
-                    dp[i]=max(dp[i],dp[j]+1)
-                    flag[i]=-1
-                if nums[i]-nums[j]<0 and flag[j]==-1:
-                    dp[i]=max(dp[i],dp[j]+1)
-                    flag[i]=1
-        temp=dp[-1]
-        flag=[-1]*len(nums)# 第一次是下降的
-        for i in range(1,len(nums)):
-            for j in range(i):
-                if nums[i]-nums[j]>0 and flag[j]==1:
-                    dp[i]=max(dp[i],dp[j]+1)
-                    flag[i]=-1
-                if nums[i]-nums[j]<0 and flag[j]==-1:
-                    dp[i]=max(dp[i],dp[j]+1)
-                    flag[i]=1
-        return max(temp,dp[-1])
+            if nums[i]>nums[i-1] and up!=True:
+                res+=1
+                up=True
+                down=False
+            if nums[i]<nums[i-1] and down!=True:
+                res+=1
+                down=True
+                up=False
+        return res
+                
             
-        
         
 
 
