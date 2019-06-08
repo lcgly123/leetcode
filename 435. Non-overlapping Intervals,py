@@ -21,18 +21,33 @@ Explanation: You need to remove two [1,2] to make the rest of intervals non-over
 
 class Solution:
     def eraseOverlapIntervals(self, intervals: List[Interval]) -> int:
+        inter=sorted(intervals,key=lambda x:x[1])
         
-        # 只有两种可能，重合和覆盖，重合的话删哪个都一样，覆盖的话删end靠后的才能留下更多
-        intervals=sorted(intervals,key=lambda x:x.end)
-        
-        
-        cur_end=float('-inf')
+        l=0
         count=0
-        for i in range(len(intervals)):
-            if cur_end>intervals[i].start:
-                # intervals.pop(i)# 说明for循环并不会每次都重新计算一次len(intervals)
+        if len(inter)==0:
+            return 0
+        for r in range(1,len(inter)):
+            if inter[r][0]<inter[l][1]:
                 count+=1
             else:
-                cur_end=intervals[i].end
-                
+                l=r
         return count
+        
+        
+
+        
+#         # 只有两种可能，重合和覆盖，重合的话删哪个都一样，覆盖的话删end靠后的才能留下更多
+#         intervals=sorted(intervals,key=lambda x:x[0])
+        
+        
+#         cur_end=float('-inf')
+#         count=0
+#         for i in range(len(intervals)):
+#             if cur_end>intervals[i][0]:
+#                 # intervals.pop(i)# 说明for循环并不会每次都重新计算一次len(intervals)
+#                 count+=1
+#             else:
+#                 cur_end=intervals[i][1]
+                
+#         return count
