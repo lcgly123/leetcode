@@ -18,7 +18,7 @@ Output:
 class Solution:
     def reconstructQueue(self, people: List[List[int]]) -> List[List[int]]:
         # 想法很NB，个矮的插进去不会影响个高的，只要同等身高的才会彼此影响，所以按要求前面人的个数从小到大插进去，所以这种题给的数据不合适排不了
-        mid=sorted(people,key=lambda x:(-x[0],x[1]))
+        mid=sorted(people,key=lambda x:(-x[0],x[1]))# 个高的排前面，同等身高前面人少的排前面
         
         res=[]
         for x in mid:
