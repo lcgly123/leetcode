@@ -28,17 +28,16 @@ return: 3, for 3 arithmetic slices in A: [1, 2, 3], [2, 3, 4] and [1, 2, 3, 4] i
 
 class Solution:
     def numberOfArithmeticSlices(self, A: List[int]) -> int:
-        res=[0]
+        res=0
         add=1
         for i in range(2,len(A)):
             if A[i]-A[i-1]==A[i-1]-A[i-2]:
-                res.append(res[-1]+add)# add 就是从右起第三个一直数到最左边的个数，就是新增加的等差数列
+                res+=add# add 就是从右起第三个一直数到最左边的个数，就是新增加的等差数列
                 add+=1
             else:
                 add=1
-                
-        return res[-1]
         
-        
+        return res
+
         
         
