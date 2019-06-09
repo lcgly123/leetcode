@@ -46,23 +46,17 @@ class Codec:
         :type data: str
         :rtype: TreeNode
         """
-        #居然是自己想到的，NB
-        def dfs(data,pre):# pre的意思是上一个比本节点大的值
-            if data==[]:# 只是防止第一次就啥都没
-                return 
+        def dfs(data):
+            if data==[]:
+                return
             root=TreeNode(data[0])
-            data.pop(0)
-            if data!=[]:
-                if data[0]<root.val:
-                    root.left=dfs(data,root.val)
-                    
-            if data!=[]:# 上面的递归完可能就没了
-                if data[0]>root.val:
-                    if data[0]<pre:
-                        root.right=dfs(data,pre)# 这里应为pre，上一个比本节点大的值
-                   
+            i=1
+            while(i<len(data) and data[i]<data[0]):
+                i+=1
+            root.left=dfs(data[1:i])
+            root.right=dfs(data[i:])
             return root
-        return dfs(data,float('inf'))# 有用
+        return dfs(data)
             
         
 
