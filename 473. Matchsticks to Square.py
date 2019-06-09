@@ -15,44 +15,36 @@ Output: false
 
 Explanation: You cannot find a way to form a square with all the matchsticks.
 
-
 class Solution(object):
     def makesquare(self, nums):
         """
         :type nums: List[int]
         :rtype: bool
         """
-        # 实际上也是搜索，有点像排列组合
-        def dfs(candidates,target,nums,pos):
-            if pos==len(nums):
-                if candidates[0]==candidates[1]==candidates[2]==candidates[3]==target:
-                    return True  
-                else:
-                    return
+        def dfs(can,path,target):
+            if path[0]==path[1]==path[2]==path[3]==target:
+                return True
+            if can==[]:
+                return False
             
-            for i in range(len(candidates)):
-                if candidates[i]+nums[pos]>target:#有用
+            for j in range(len(path)):
+                if path[j]+can[0]>target:
                     continue
-                candidates_in=candidates[:][:]
-                candidates_in[i]=candidates[i]+nums[pos]
-                res=dfs(candidates_in,target,nums,pos+1)
-                if res:
+                path_in=path[:]
+                path_in[j]+=can[0]
+                if dfs(can[1:],path_in,target):
                     return True
-                
+            return False
+        
         if len(nums)<4:
             return False
-        if sum(nums)%4!=0:#空集不能求和
+        if sum(nums)%4!=0:
             return False
         nums.sort(reverse=True)# 能够减少时间
-        candidates=[0]*4
-        target=sum(nums)/4
-        res=dfs(candidates,target,nums,0)
-        if res:
-            return True
-        else:
-            return False
+        target=sum(nums)//4
+        path=[0]*4
+        return dfs(nums,path,target)
                 
-                
-                
+        
                 
 
