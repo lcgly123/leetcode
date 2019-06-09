@@ -19,16 +19,16 @@ class Solution(object):
         :type points: List[List[int]]
         :rtype: int
         """
-        res=0
-        p=sorted(points,key=lambda x:x[1])
-        
-        #NB
-        arrow=float('-inf')
-        
-        for s,e in p:
-            if s>arrow:
+        inter=sorted(points,key=lambda x:x[1])
+        if len(inter)==0:
+            return 0
+
+        res=1
+        l=0
+        for r in range(1,len(inter)):
+            if inter[r][0]>inter[l][1]:
                 res+=1
-                arrow=e# 新箭头
+                l=r
         
         return res
         
