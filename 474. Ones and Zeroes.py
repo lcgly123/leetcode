@@ -24,13 +24,13 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        dp=[[0]*(n+1) for _ in range(m+1)]
-        
+        dp=[[0]*(n+1) for _ in range(m+1)]# 代表到这的最大背多少个包（字符串）
         for string in strs:
             z,o=string.count('0'),string.count('1')
             for i in range(m,z-1,-1):# NB
                 for j in range(n,o-1,-1):
-                    dp[i][j]=max(dp[i-z][j-o]+1,dp[i][j])
+                    if i-z>=0 and j-o>=0:
+                        dp[i][j]=max(dp[i-z][j-o]+1,dp[i][j])
                     
         return dp[-1][-1]
         
