@@ -24,24 +24,20 @@ class Solution(object):
         :rtype: int
         """
         
-        from collections import defaultdict
-        count=defaultdict(int)
-        
-        
+        dic=collections.defaultdict(int)
         if p=='':
             return 0
-        # NB
-        start=0
-        count[p[0]]=1# 代表有多少种以p[i]结尾的字符子串
-        # 假如数完一段后，下一段有四种情况：不相交，在前一段里面，头（1）尾（2）相交（需要更新count[p[i]]），尾（1）头（2）相交(出来的部分才要 更新)，max就是应对后两种情况
-        for i in range(1,len(p)):
-            if ord(p[i])==ord(p[i-1])+1 or p[i-1:i+1]=='za':
-                count[p[i]]=max(count[p[i]],i-start+1)# i-start+1不是连续子串中以p[i]结尾（最多以start开始）的有这么多个，有用
+        dic[p[0]]=1# 代表有多少种以p[i]结尾的字符子串，因为题目意思：同一个连续子串出现在不同位置算一个，求的是多少种不同的连续子串，所以要加max
+        l=0
+        for r in range(1,len(p)):
+            if ord(p[r])-ord(p[r-1])==1 or p[r-1:r+1]=='za':
+                dic[p[r]]=max(dic[p[r]],r-l+1)# 增加这一位增加的连续子串数
             else:
-                start=i
-                count[p[i]]=max(count[p[i]],1)
-                
-        return sum(count.values())
+                dic[p[r]]=max(dic[p[r]],1)
+                l=r
+        # print(dic)
+        return sum(dic.values())
+        
                     
         
 
