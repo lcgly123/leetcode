@@ -13,6 +13,7 @@ Output:
 class Solution:
     def longestPalindromeSubseq(self, s: str) -> int:
         # NB
+        # 不连续
         
         def dfs(s,i,j):
             if i>j:
