@@ -30,6 +30,25 @@ key = 3
 class Solution:
     def deleteNode(self, root: TreeNode, key: int) -> TreeNode:
         
+        # def dfs(root,key):
+        #     if root==None:
+        #         return 
+        #     if key<root.val:
+        #         root.left=dfs(root.left,key)
+        #     elif key>root.val:
+        #         root.right=dfs(root.right,key)
+        #     else: # 要删除的就是它
+        #         if root.left==None:
+        #             return root.right
+        #         else:# 要么把它换成左子树的最大值，然后在左子树中删除这个最大值
+        #             temp=root.left
+        #             while(temp.right!=None):
+        #                 temp=temp.right
+        #             root.val=temp.val
+        #             root.left=dfs(root.left,root.val)
+        #     return root
+        # return dfs(root,key)
+            
         
         def dfs(root,key):
             if root==None:
@@ -42,11 +61,12 @@ class Solution:
             else:
                 if root.right==None: # 这里其实左右都行
                     return  root.left
-                
-                temp=root.right
-                while(temp.left!=None):
-                    temp=temp.left
-                root.val=temp.val
-                root.right=dfs(root.right,root.val)#NB
+                else:# 要么把它换成右子树的最小值，然后在右子树中删除这个最小值
+                    temp=root.right
+                    while(temp.left!=None):
+                        temp=temp.left
+                    root.val=temp.val
+                    root.right=dfs(root.right,root.val)#NB
             return root
         return dfs(root,key)
+                    
