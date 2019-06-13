@@ -20,6 +20,31 @@ From each of those positions, there are also two moves that will keep the knight
 The total probability the knight stays on the board is 0.0625.
 
 class Solution:
+     #memo很有用
+    def knightProbability(self, N: int, K: int, r: int, c: int) -> float:
+        def dfs(i,j,step,pro):
+            if i<0 or i>=N or j<0 or j>=N:
+                return 0
+            if step==K:
+                return pro
+            if (i,j,step) in memo:
+                return memo[(i,j,step)]
+            
+            direct=[(-1, -2), (-2, -1), (-2, 1), (-1, 2), (1, 2), (2, 1), (2, -1), (1, -2)]
+            res=0
+            for dx,dy in direct:
+                res+=dfs(i+dx,j+dy,step+1,pro/8)
+            
+            memo[(i,j,step)]=res
+            return res
+        
+        memo={}
+        return dfs(r,c,0,1)
+       
+       
+       
+       
+       
     #memo很有用
     def knightProbability(self, N: int, K: int, r: int, c: int) -> float:
         
