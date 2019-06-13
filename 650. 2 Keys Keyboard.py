@@ -21,20 +21,33 @@ In step 3, we use Paste operation to get 'AAA'.
 
 class Solution:
     def minSteps(self, n: int) -> int:
-        dp=[i for i in range(n+1)]
-        dp[0]=dp[1]=0#特别的
         
-        # for i in range(n+1):
-        #     for j in range(i-1,0,-1):
-        #         if i%j==0:
-        #             dp[i]=min(dp[i],dp[j]+1+i//j-1)
-                    
-        # 稍好一点吧
-        for i in range(n+1):
+        
+        dp=[0]*(n+1)# 如果没有是某个数的整数倍，就是1的多少倍-1，刚好是index(都会是1的倍数，所以只要dp【1】对就行其他无所谓)
+        dp[0]=dp[1]=0
+        
+        for i in range(2,n+1):
             for j in range(i-1,0,-1):
                 if i%j==0:
-                    dp[i]=dp[j]+1+i//j-1
+                    dp[i]=dp[j]+1+i//j-1#先复制一次，之后粘贴k-1次
                     break
+        return dp[-1]
+
+        
+#         dp=[i for i in range(n+1)]
+#         dp[0]=dp[1]=0 # 特别的
+        
+#         # for i in range(n+1):
+#         #     for j in range(i-1,0,-1):
+#         #         if i%j==0:
+#         #             dp[i]=min(dp[i],dp[j]+1+i//j-1)
                     
-        return dp[n]
+#         # 稍好一点吧
+#         for i in range(n+1):
+#             for j in range(i-1,0,-1):
+#                 if i%j==0:
+#                     dp[i]=dp[j]+1+i//j-1
+#                     break
+                    
+#         return dp[n]
                 
