@@ -15,24 +15,46 @@ The graph looks like this:
 
 The cheapest price from city 0 to city 2 with at most 1 stop costs 200, as marked red in the picture.
 
-
 class Solution:
     def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, K: int) -> int:
         
-        # NB
-        # 有步数限制，Dj算法不合适
-        dp=[float('inf')]*n
-        dp[src]=0
+
+#         # NB
+#         dp=[float('inf')]*n
+#         dp[src]=0
         
-        for _ in range(K+1):# k个stop则中间一共k+1个空
-            new_dp=dp[:]# 注意，不然前面改的影响后面的
-            for s,d,cost in flights:
-                new_dp[d]=min(new_dp[d],dp[s]+cost)
-            dp=new_dp[:]
+#         for _ in range(K+1):# k个stop则中间一共k+1个空
+#             new_dp=dp[:]# 注意，不然前面改的影响后面的
+#             for s,d,cost in flights:
+#                 new_dp[d]=min(new_dp[d],dp[s]+cost)
+#             dp=new_dp[:]
                 
-        return dp[dst] if dp[dst]!=float('inf') else -1
+#         return dp[dst] if dp[dst]!=float('inf') else -1
         
         
+        gragh=collections.defaultdict(dict)
+
+        for k,v,w in flights:
+            gragh[k][v]=w
+      
+
+        queen=[(src,1,0)]
+        max_step=K+2
+        min_cost=float('inf')
+        stop=1
+        while(queen):
+            node,step,cost=queen.pop(0)
+            if  node==dst:
+                min_cost=min(min_cost,cost)
+
+            for next_node in gragh[node]:
+                if min_cost>cost+gragh[node][next_node] and step+1<=max_step:
+                    queen.append((next_node,step+1,cost+gragh[node][next_node]))
+        return min_cost if min_cost!=float('inf') else -1
+            
+
+        
+
         
 
         
