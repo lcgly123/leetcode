@@ -25,10 +25,8 @@ class Solution:
     def numRabbits(self, answers: List[int]) -> int:
         
         # 如果某个兔子回答的数字是x，那么说明森林里共有x+1个相同颜色的兔子，
-        # 我们最多允许x个兔子同时回答x个，一旦超过了x个兔子，那么就得再增加了x+1个新兔子了。
+        # 我们最多允许再有x个兔子同时回答x个，一旦超过了x个兔子，那么就得再增加了x+1个新兔子了。
         # 所以，遇到一个就减一，为0时删掉这个键，再有兔子喊n就是新的颜色
-        
-        
         
         
         samecolor_num={}
@@ -43,4 +41,6 @@ class Solution:
                 del samecolor_num[n]
                 
         return res
+        
+        
         
