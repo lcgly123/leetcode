@@ -20,24 +20,32 @@ Example 2:
 Input: "11235813"
 Output: [1,1,2,3,5,8,13]
 
-
 class Solution:
     def splitIntoFibonacci(self, S: str) -> List[int]:
         
-        # 答案不如我的好
-        def check(index,res):
-            if index==len(S):
-                return True
-            n3=str(res[-1]+res[-2])
-            # if res[0]==123 and res[1]==456:
-                # print(res,n3)
-            if S[index:index+len(n3)]==n3 and int(n3)<2 ** 31 - 1:#  and int(n3)<2 ** 31 - 1这个加上就对了
-                res.append(int(n3))
-                flag=check(index+len(n3),res)
-                return flag
-            else:
-                return False
-            
+        # # 答案不如我的好
+        # def check(index,res):
+        #     if index==len(S):
+        #         return True
+        #     n3=str(res[-1]+res[-2])
+        #     # if res[0]==123 and res[1]==456:
+        #         # print(res,n3)
+        #     if S[index:index+len(n3)]==n3 and int(n3)<2 ** 31 - 1:#  and int(n3)<2 ** 31 - 1这个加上就对了
+        #         res.append(int(n3))
+        #         flag=check(index+len(n3),res)
+        #         return flag
+        #     else:
+        #         return False
+        def check(s,res):
+            while(s):
+                n3=str(res[-1]+res[-2])
+                if s.startswith(n3) and int(n3)<2 ** 31 - 1:#  and int(n3)<2 ** 31 - 1这个加上就对了
+                    res.append(int(n3))
+                    s=s[len(n3):]
+                else:
+                    return False
+                
+#             return True
             
         
         
@@ -49,13 +57,11 @@ class Solution:
                 if str(int(n1))!=n1 or str(int(n2))!=n2:
                     continue
                 res=[int(n1),int(n2)]
-                flag=check(j,res)
-                # print(n1,n2,flag)
+                # flag=check(j,res)
+                flag=check(S[len(n1+n2):],res)
                 if flag: 
                     return res
         return []
                     
-        
-        
         
         
