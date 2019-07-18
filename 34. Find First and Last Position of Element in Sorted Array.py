@@ -14,32 +14,25 @@ Output: [3,4]
 
 class Solution:
     def searchRange(self, nums, target):
-        #二分查找
         l,r=0,len(nums)-1
         while(l<=r):
             mid=(l+r)//2
-            if nums[mid]==target:
-                s,e=mid,mid
-                while(s>=0):
-                    if nums[s]==target:
-                        s-=1
-                    else:
-                        break
-                s+=1
-                while(e<len(nums)):
-                    if nums[e]==target:
-                        e+=1
-                    else:
-                        break
-                e-=1
-                return [s,e]
-                
-            elif target>nums[mid]:
+            
+            if nums[mid]>target:
+                r=mid-1
+            elif nums[mid]<target:
                 l=mid+1
             else:
-                r=mid-1
+                s,e=mid,mid
+                while(s>0 and nums[s]==nums[s-1]):
+                    s-=1
+                while(e<len(nums)-1 and nums[e]==nums[e+1]):
+                    e+=1
+                return [s,e]
         return [-1,-1]
         
+    
+    
 #         # 双指针
 #         start,end=-1,-1
 #         l,r=0,len(nums)-1
@@ -56,5 +49,8 @@ class Solution:
 #             if start!=-1 and end!=-1:
 #                 break
 #         return [start,end]
+        
+        
+        
         
         
