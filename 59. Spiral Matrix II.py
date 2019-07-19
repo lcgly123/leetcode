@@ -20,26 +20,17 @@ class Solution:
         :rtype: List[List[int]]
         """
         A=[[0]*n for _ in range(n)]
+        flag=[[0]*n for _ in range(n)] # 更加普适
+        dx=0
+        dy=1
         x,y=0,0
-        dx,dy=0,1
+        
         for i in range(n*n):
             A[x][y]=i+1
-            if A[(x+dx)%n][(y+dy)%n]:
-                dx,dy=dy,-dx
+            flag[x][y]=1
+            if flag[(x+dx)%n][(y+dy)%n]==1:# 试探一下
+                dx,dy=dy,-dx # 撞了就顺时针旋转90度，有用
             x+=dx
             y+=dy
+        
         return A
-        
-
-        
-        
-#         A=[[0 for i in range(n)] for i in range(n)]
-#         x,y,dx,dy=0,0,0,1
-#         for i in range(n*n):
-#             A[x][y]=i+1
-#             if A[(x+dx)%n][(y+dy)%n]:#就是走到头了（循环了），有用
-#                 dx,dy=dy,-dx# 撞了就顺时针旋转90度，有用
-#             x+=dx
-#             y+=dy
-            
-#         return A
