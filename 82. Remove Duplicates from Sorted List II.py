@@ -28,9 +28,9 @@ class Solution:
         res.next=head
         pre=res
         
-        while(head and head.next):
+        while(head and head.next):# 防止head为None
             if head.val==head.next.val:
-                while(head and head.next and head.val==head.next.val):# 这一段用来删除重复的
+                while(head.next and head.val==head.next.val):# 这一段用来删除重复的
                     head=head.next
                 head=head.next# 这是都删了，要留一个的话就不要这句
                 pre.next=head
