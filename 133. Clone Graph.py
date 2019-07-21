@@ -27,16 +27,33 @@ class Node:
 class Solution:
     def cloneGraph(self, node: 'Node') -> 'Node':
         
+        # 其实就是复制到dic里，dic的k是原值，v是新值
         def dfs(node):
-            # 走到走过的节点还要循环一次，因为是无向图，不需要停止条件，循环完就完
-            for nei in node.neighbors:
-                if nei in dic:
-                    dic[node].neighbors.append(dic[nei])
+            if node==None:
+                return
+            for next_node in node.neighbors:
+                if next_node in dic:
+                    dic[node].neighbors.append(dic[next_node])
                 else:
-                    dic[nei]=Node(nei.val,[])
-                    dic[node].neighbors.append(dic[nei])
-                    dfs(nei)
+                    new_node=Node(next_node.val,[])
+                    dic[next_node]=new_node
+                    dic[node].neighbors.append(dic[next_node])
+                    dfs(next_node)
         
         dic={node:Node(node.val,[])}
         dfs(node)
         return dic[node]
+
+#         def dfs(node):
+#             # 走到走过的节点还要循环一次，因为是无向图，不需要停止条件，循环完就完
+#             for nei in node.neighbors:
+#                 if nei in dic:
+#                     dic[node].neighbors.append(dic[nei])
+#                 else:
+#                     dic[nei]=Node(nei.val,[])
+#                     dic[node].neighbors.append(dic[nei])
+#                     dfs(nei)
+        
+#         dic={node:Node(node.val,[])}
+#         dfs(node)
+#         return dic[node]
