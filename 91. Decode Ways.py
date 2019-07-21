@@ -21,13 +21,16 @@ class Solution:
     
         dp=[0]*(len(s)+1)
         dp[0]=1
-        dp[1] = 1 if 0 < int(s[0]) <= 9 else 0# 虽然在这个里是多余的，但是一般要判断这一位符合什么条件，再确定相应的值
         
-        for i in range(2,len(s)+1):
-            if 0<int(s[i-1:i])<=9:
-                dp[i]+=dp[i-1]
-            if s[i-2:i][0] != '0' and 0<int(s[i-2:i])<=26:
-                dp[i]+=dp[i-2]
-                
+        for i in range(len(s)):
+            if int(s[i])>0:
+                dp[i+1]+=dp[i]
+            if i>0 and 0<int(s[i-1:i+1])<=26 and s[i-1]!='0':
+                dp[i+1]+=dp[i-1]
+        
         return dp[-1]
+        
+        
+        
+        
             
