@@ -11,6 +11,28 @@ class Solution:
     def minSubArrayLen(self, s: int, nums: List[int]) -> int:
 
         
+
+        if sum(nums)<s:
+            return 0
+        l=0
+        add=0
+        res=float('inf')
+        for r in range(len(nums)):
+            add+=nums[r]
+            if add>=s:
+                while(add>=s):
+                    add-=nums[l]
+                    l+=1
+                res=min(res,r-l+1+1)
+         
+        
+        return res
+        
+
+        
+        
+        
+        
         # 滑窗法，sum会超时
         # if sum(nums)<s:
         #     return 0
@@ -38,3 +60,4 @@ class Solution:
 #                     temp-=nums[l]
 #                     l+=1
 #         return res 
+        
