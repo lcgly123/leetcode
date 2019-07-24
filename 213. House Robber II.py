@@ -20,23 +20,46 @@ Explanation: Rob house 1 (money = 1) and then rob house 3 (money = 3).
              
              
              
-class Solution(object):
-    def rob(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
+class Solution:
+    def rob(self, nums: List[int]) -> int:
         
-        def robber_1(nums):
-            pre_max=0# 在前一个位置上，的最大值
-            pre_pre_max=0# 在前前一个位置上，的最大值
-            for i in nums:
-                cur=max(pre_pre_max+i,pre_max)# 在现在位置上，的最大值
-                pre_pre_max=pre_max
-                pre_max=cur
-            return pre_max
+        # 更好理解
+        def rob(nums):
+            if len(nums)==2:
+                return pre
+            
+            curmax=0
+            pre=max(nums[:2])
+            prepre=nums[0]
+            for i in range(2,len(nums)):
+                curmax=max(pre,prepre+nums[i])
+                prepre=pre
+                pre=curmax
+            return curmax
+        
         if len(nums)==0:
             return 0
-        if len(nums)<3:
+        elif len(nums)==1:
+            return nums[0]
+        elif len(nums)==2:
             return max(nums)
-        return max(robber_1(nums[1:]),robber_1(nums[:-1]))
+        else:
+            return max(rob(nums[1:]),rob(nums[:-1]))
+        
+
+
+        
+        # def robing(nums):
+        #     premax=0
+        #     prepremax=0
+        #     for n in nums:
+        #         curmax=max(prepremax+n,premax)
+        #         prepremax=premax
+        #         premax=curmax
+        #     return curmax
+        # if nums==[]:
+        #     return 0
+        # elif len(nums)<3:
+        #     return max(nums)
+        # else:
+        #     return max(robing(nums[1:]),robing(nums[:-1]))
