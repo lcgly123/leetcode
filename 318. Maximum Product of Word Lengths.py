@@ -15,7 +15,7 @@ Explanation: The two words can be "ab", "cd".
 
 
 
-# 字符串的比较可以考虑用bit操作
+# 字符串的比较可以考虑用bit操作,不是说这道题，而是一般意义上
 class Solution:
     def maxProduct(self, words: List[str]) -> int:
         wordbit=[0]*len(words)
