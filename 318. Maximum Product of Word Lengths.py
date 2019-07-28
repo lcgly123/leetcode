@@ -19,14 +19,16 @@ Explanation: The two words can be "ab", "cd".
 class Solution:
     def maxProduct(self, words: List[str]) -> int:
         wordbit=[0]*len(words)
-        for i in range(len(words)):
-            for c in words[i]:
-                wordbit[i]|=1<<(ord(c)-ord('a'))# 意思是1左移多少位，前面是移动的数，后面是移动的位数
-                
+        
+        for i,w in enumerate(words):
+            for c in set(w):
+                wordbit[i]+=1<<(ord(c)-ord('a'))
+        
         res=0
         for i in range(len(words)):
             for j in range(i+1,len(words)):
-                if wordbit[i]&wordbit[j]==0:#  two words do not share common letters因为有要求
-                    res=max(res,len(words[i]*len(words[j])))
-                    
+                if wordbit[i]&wordbit[j]==0:# 意思是1左移多少位，前面是移动的数，后面是移动的位数
+                    res=max(res,len(words[i])*len(words[j]))
+
         return res
+        
