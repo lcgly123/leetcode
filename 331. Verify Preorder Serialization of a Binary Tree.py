@@ -29,25 +29,23 @@ Output: false
 
 class Solution:
     def isValidSerialization(self, preorder: str) -> bool:
-        count=0
         # 就是数产生的none，然后碰见一个消除一个，中途为0就是错的，只能最后为0
+        cnt=0
+        
         if preorder=='#':
             return True
-        for i,node in enumerate(preorder.split(',')):
-            if i==0:
-                if node=='#':
-                    count-=1
-                if node!='#':
-                    count+=2
+        for i,c in enumerate(preorder.split(',')):
+            if c=='#':
+                cnt-=1
             else:
-                if node=='#':
-                    count-=1
+                if i==0:
+                    cnt+=2
                 else:
-                    count+=1
-            if count==0 and i!=len(preorder.split(','))-1:
+                    cnt+=1
+            
+            if cnt==0 and i<len(preorder.split(','))-1:
                 return False
-   
-        if count!=0:
-            return False
-        else:
-            return True
+        
+        return cnt==0
+            
+
