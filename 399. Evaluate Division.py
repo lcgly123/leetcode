@@ -19,33 +19,32 @@ queries = [ ["a", "c"], ["b", "a"], ["a", "e"], ["a", "a"], ["x", "x"] ].
 class Solution:
     def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
         
-        gragh=collections.defaultdict(list)
+        gragh=collections.defaultdict(dict)
         for i,(k,v) in enumerate(equations):
-            gragh[k].append([v,values[i]])
-            gragh[v].append([k,1/values[i]])
-        
-
-        def dfs(node,pre,seen,target):
-            global res
-            if node not in gragh or node not in gragh:
-                return
-            if node in seen:
-                return
+            gragh[k][v]=values[i]
+            gragh[v][k]=1/values[i]
+            
+        def dfs(node,pre,target,seen):
             if node==target:
-                res=pre
-                return
-            for next_node,v in gragh[node]:
-                dfs(next_node,pre*v,seen+[node],target)
-                
-        global res
-        res_list=[]
+                return pre
+            if node in seen:
+                return -1
+            
+            for next_node in gragh[node]:
+                res= dfs(next_node,pre*gragh[node][next_node],target,seen+[node])
+                if res!=-1:
+                    return res
+            return -1
+        
+        res=[]
         for k,v in queries:
-            res=-1.0
-            dfs(k,1,[],v)
-            res_list.append(res)
+            if k not in gragh or v not in gragh:
+                res.append(-1)
+            else:
+                res.append(dfs(k,1,v,[]))
         
-        return res_list
-        
+        return res
+
 
 #         # 我真NB
 #         from collections import defaultdict
@@ -97,6 +96,8 @@ class Solution:
 #         return res
                 
                         
+                    
+                    
                     
                 
                         
