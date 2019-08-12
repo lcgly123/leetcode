@@ -15,17 +15,33 @@ Explanation: [0, 1] (or [1, 0]) is a longest contiguous subarray with equal numb
 class Solution:
     def findMaxLength(self, nums: List[int]) -> int:
         
-        count=0
-        maxlen=0
-        dic={0:-1}# 只有o这个水平特殊
+        cnt=0# 其实这个是多少都行，就是一个基础值
+        res=0
+        dic={cnt:-1}# -1是位置
         
         for i,n in enumerate(nums):
-            count+=(1 if n==1 else -1)
-            if count not in dic:
-                dic[count]=i# 记录达到这一水平的index
+            cnt+=1 if n==1 else -1
+            if cnt not in dic:
+                dic[cnt]=i
             else:
-                maxlen=max(maxlen,i-dic[count])# 因为不同水平的之间要比较，如果只是同一水平就直接i-dic[count]
+                res=max(res,i-dic[cnt])# 没有+1
                 
-        return maxlen
+        return res
+        
+        
+        
+#         count=0
+#         maxlen=0
+#         dic={0:-1}# 只有o这个水平特殊
+        
+#         for i,n in enumerate(nums):
+#             count+=(1 if n==1 else -1)
+#             if count not in dic:
+#                 dic[count]=i# 记录达到这一水平的index
+#             else:
+#                 maxlen=max(maxlen,i-dic[count])# 因为不同水平的之间要比较，如果只是同一水平就直接i-dic[count]
+                
+#         return maxlen
+        
         
         
