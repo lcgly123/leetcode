@@ -34,5 +34,18 @@ class Solution:
                 return True
             
         return False
+       
+       
+       # 也对，但会超时
+#          s1=sorted(s1)
+        
+#         l=0
+#         for r,n in enumerate(s2):
+#             # print(sorted(s2[l:r+1]),s1)
+#             if sorted(s2[l:r+1])==s1:
+#                 return True
+#             if r-l+1>=len(s1):
+#                 l+=1
+#         return False
             
         
