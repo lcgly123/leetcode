@@ -15,7 +15,7 @@ Valid combinations are:
 class Solution:
     def triangleNumber(self, nums: List[int]) -> int:
         
-        nums.sort(reverse=True)
+        nums.sort(reverse=True)# 必须从大到小
         count=0
         # 两指针，好使，3个经常这个
         for i in range(len(nums)-2):#第一条边
