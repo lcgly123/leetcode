@@ -83,8 +83,25 @@ class Solution:
 #         dfs(candidates,0,target,[],result)
         
 #         return result
-    
-    
+    # dfs的后向写法
+            def dfs(can,add):
+            if add==target:
+                return 'Y'
+            if add>target:
+                return 'N'
+            
+            res=[]
+            for i,n in enumerate(can):
+                latter=dfs(can[i:],add+can[i])
+                for x in latter:
+                    if x=='N':
+                        pass
+                    elif x=='Y':
+                        res+=[[can[i]]]
+                    else:
+                        res+=[[n]+x]
+            return res
+        return dfs(candidates,0)
         
     
     
